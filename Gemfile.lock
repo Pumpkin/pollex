@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/lmarburger/mini_magick.git
+  revision: b15b43f6c6c273ce7d67db3b6ce62826c83d30e6
+  branch: refactor_system_call
+  specs:
+    mini_magick (3.4)
+      subexec (~> 0.2.1)
+
+GIT
   remote: https://github.com/sconover/wrong.git
   revision: 003d1903e11124de08d35ffc01cf8dd2b920d64f
   branch: rb-1.9.3-p0
@@ -45,8 +53,6 @@ GEM
       activesupport
       builder
     http_parser.rb (0.5.3)
-    mini_magick (3.3)
-      subexec (~> 0.1.0)
     multi_json (1.0.3)
     newrelic_rpm (3.1.2)
     predicated (0.2.6)
@@ -71,7 +77,7 @@ GEM
       ruby2ruby (>= 1.2.5)
       ruby_parser (>= 2.0.5)
       sexp_processor (>= 3.0.5)
-    subexec (0.1.0)
+    subexec (0.2.1)
     thin (1.2.11)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -91,7 +97,7 @@ DEPENDENCIES
   em-http-request (~> 1.0)
   em-synchrony (~> 1.0)
   hoptoad_notifier
-  mini_magick
+  mini_magick!
   newrelic_rpm
   rack-fiber_pool
   rack-test

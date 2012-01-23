@@ -75,3 +75,17 @@ protected
     @tempfile ||= Tempfile.new(File.basename(remote_url))
   end
 end
+
+require 'ostruct'
+MiniMagick.timeout = 30
+MiniMagick.execute = ->(command, timeout) do
+  f = Fiber.current
+  EM.system command do |output, status|
+    f.resume [ output, status ]
+  end
+
+  # TODO: handle timeout
+
+  output, status = Fiber.yield
+  OpenStruct.new output: output, exitstatus: status.exitstatus
+end
