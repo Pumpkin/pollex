@@ -109,6 +109,9 @@ protected
   def render_thumbnail(thumbnail)
     send_file thumbnail.file, :disposition => 'inline',
                               :type        => thumbnail.type
+  rescue Thumbnail::Error => e
+    HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
+    render_drop_icon thumbnail
   end
 
   # For non-images, redirect to a file type icon. Response is cached for one

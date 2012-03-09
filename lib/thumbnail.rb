@@ -13,6 +13,7 @@ class Thumbnail < Struct.new(:drop)
 
   # Raised when the drop being thumbaniled is not an image.
   class NotImage < StandardError; end
+  class Error    < StandardError; end
 
   def file
     raise NotImage.new unless drop.image?
@@ -62,6 +63,8 @@ protected
       c.crop    '200x150+0+0'
       c.repage.+
     end
+  rescue MiniMagick::Error
+    raise Error
   end
 
   # Checks the image and returns true if either of its dimensions exceed
@@ -77,14 +80,17 @@ protected
 end
 
 require 'ostruct'
-MiniMagick.timeout = 30
+MiniMagick.timeout = 15
 MiniMagick.execute = ->(command, timeout) do
+  deferrable = EM::DefaultDeferrable.new
   f = Fiber.current
-  EM.system command do |output, status|
+  pid = EM.system command do |output, status|
+    deferrable.succeed
     f.resume [ output, status ]
   end
 
-  # TODO: handle timeout
+  deferrable.timeout MiniMagick.timeout
+  deferrable.errback do Process.kill('TERM', pid) end
 
   output, status = Fiber.yield
   OpenStruct.new output: output, exitstatus: status.exitstatus
