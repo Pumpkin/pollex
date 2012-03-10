@@ -82,15 +82,17 @@ end
 require 'ostruct'
 MiniMagick.timeout = 15
 MiniMagick.system_method = ->(command, timeout) do
-  deferrable = EM::DefaultDeferrable.new
   f = Fiber.current
+  timer = nil
+
   pid = EM.system command do |output, status|
-    deferrable.succeed
+    timer.cancel if timer
     f.resume [ output, status ]
   end
 
-  deferrable.timeout MiniMagick.timeout
-  deferrable.errback do Process.kill('TERM', pid) end
+  timer = EM::Timer.new(timeout) do
+    Process.kill('TERM', pid) rescue nil
+  end
 
   output, status = Fiber.yield
   OpenStruct.new output: output, exitstatus: status.exitstatus
