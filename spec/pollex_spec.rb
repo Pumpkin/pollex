@@ -5,12 +5,10 @@ require 'support/vcr'
 require 'pollex'
 
 describe Pollex do
-
   include Rack::Test::Methods
+  def app() Pollex end
 
-  def app
-    Pollex
-  end
+  after do $stdout = STDOUT end
 
   it 'redirects the home page to the CloudApp product page' do
     get '/'
@@ -25,6 +23,7 @@ describe Pollex do
   it 'returns thunbnail for drop' do
     VCR.use_cassette 'small' do
       EM.synchrony do
+        $stdout = StringIO.new
         get '/hhgttg'
         EM.stop
 

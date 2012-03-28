@@ -3,6 +3,7 @@ require 'em-synchrony/em-http'
 
 require 'mini_magick'
 require 'tempfile'
+require_relative 'thumbnail_reporter'
 
 # Thumbnail
 # ---------
@@ -19,7 +20,7 @@ class Thumbnail < Struct.new(:drop)
     raise NotImage.new unless drop.image?
 
     @file ||= begin
-                resize_image
+                resize_image(ThumbnailReporter.new)
                 image.
                   write(tempfile).
                   flush
@@ -56,21 +57,27 @@ protected
 
   # Resize `image` preserving aspect ratio and crop to fit within 250x150.
   # Images smaller are not altered.
-  def resize_image
+  def resize_image(reporter)
+    reporter.start type: type, height: height, width: width
     image.combine_options do |c|
       c.resize  '200x150^' if image_too_large?
       c.gravity 'northwest'
       c.crop    '200x150+0+0'
       c.repage.+
     end
+    reporter.complete
   rescue MiniMagick::Error
+    reporter.killed
     raise Error
   end
+
+  def height() @height ||= image[:height] end
+  def width()  @width  ||= image[:width]  end
 
   # Checks the image and returns true if either of its dimensions exceed
   # 250x150.
   def image_too_large?
-    image[:width] > 200 && image[:height] > 150
+    width > 200 && height > 150
   end
 
   # The temporary file used to hold the thumbnailed **Drop**.
