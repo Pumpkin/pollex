@@ -81,7 +81,7 @@ end
 
 require 'ostruct'
 MiniMagick.timeout = 15
-MiniMagick.execute = ->(command, timeout) do
+MiniMagick.system_method = ->(command, timeout) do
   deferrable = EM::DefaultDeferrable.new
   f = Fiber.current
   pid = EM.system command do |output, status|
