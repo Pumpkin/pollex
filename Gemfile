@@ -3,6 +3,7 @@ source :gemcutter
 gem 'rake'
 gem 'em-http-request', '~> 1.0'
 gem 'em-synchrony',    '~> 1.0'
+gem 'metriks'
 gem 'mini_magick',     git:    'https://github.com/lmarburger/mini_magick.git',
                        branch: 'refactor_system_call'
 gem 'rack-fiber_pool'
