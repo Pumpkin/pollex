@@ -20,7 +20,11 @@ class Thumbnail < Struct.new(:drop)
     raise NotImage.new unless drop.image?
 
     @file ||= begin
-                resize_image(ThumbnailReporter.new)
+                reporter = ThumbnailReporter.start(type:   type,
+                                                   height: height,
+                                                   width:  width)
+                image.format('png')
+                resize_image(reporter)
                 image.
                   write(tempfile).
                   flush
@@ -58,12 +62,14 @@ protected
   # Resize `image` preserving aspect ratio and crop to fit within 250x150.
   # Images smaller are not altered.
   def resize_image(reporter)
-    reporter.start type: type, height: height, width: width
     image.combine_options do |c|
       c.resize  '200x150^' if image_too_large?
       c.gravity 'northwest'
       c.crop    '200x150+0+0'
       c.repage.+
+      c.background 'transparent'
+      c.gravity 'center'
+      c.extent '200x150'
     end
     reporter.complete
   rescue MiniMagick::Error
@@ -74,8 +80,7 @@ protected
   def height() @height ||= image[:height] end
   def width()  @width  ||= image[:width]  end
 
-  # Checks the image and returns true if either of its dimensions exceed
-  # 250x150.
+  # Checks the image and returns true if both of its dimensions exceed 250x150.
   def image_too_large?
     width > 200 && height > 150
   end

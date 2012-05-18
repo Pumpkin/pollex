@@ -1,9 +1,17 @@
 require 'hitimes'
 
 class ThumbnailReporter
-  def start(attributes)
+  def initialize(attributes)
     @attributes = attributes
+  end
+
+  def self.start(attributes)
+    new(attributes).start
+  end
+
+  def start
     @interval = Hitimes::Interval.now
+    self
   end
 
   def stop
