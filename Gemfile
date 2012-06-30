@@ -14,6 +14,8 @@ gem 'yajl-ruby'
 gem 'hoptoad_notifier'
 gem 'newrelic_rpm'
 
+gem 'foreman', group: 'development'
+
 group :test do
   gem 'rack-test'
   gem 'vcr', '~> 1.11.3'
