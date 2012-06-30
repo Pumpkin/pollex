@@ -18,12 +18,14 @@ require_relative 'thumbnail'
 # using **MiniMagick**. Any non-image Drop returns an icon representing its
 # type.
 class Pollex < Sinatra::Base
+  # Log to STDOUT
+  STDOUT.sync = true
+
+  require_relative 'metriks_reporter'
+  MetriksReporter.setup self
 
   # Load New Relic RPM and Hoptoad in the production and staging environments.
   configure(:production, :staging) do
-    # Log to STDOUT
-    STDOUT.sync = true
-
     require 'newrelic_rpm'
     require_relative 'newrelic_instrumentation'
 
