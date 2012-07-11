@@ -71,13 +71,13 @@ describe Thumbnail do
     end
   end
 
-  it "doesn't scale up a small image" do
+  it 'scales up a small image' do
     EM.synchrony do
       VCR.use_cassette 'small' do
         thumb = Thumbnail.new Drop.find('hhgttg')
         image = MiniMagick::Image.open thumb.file.path, thumb.extname
 
-        assert { image['dimensions'] == [ 1, 1 ] }
+        assert { image['dimensions'] == [ 200, 150 ] }
 
         EM.stop
       end
@@ -102,7 +102,7 @@ describe Thumbnail do
         thumb = Thumbnail.new Drop.find('hhgttg')
         image = MiniMagick::Image.open thumb.file.path, thumb.extname
 
-        assert { image['dimensions'] == [ 16, 16 ] }
+        assert { image['dimensions'] == [ 200, 150 ] }
 
         EM.stop
       end
