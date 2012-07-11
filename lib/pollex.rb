@@ -24,23 +24,23 @@ class Pollex < Sinatra::Base
   require_relative 'metriks_reporter'
   MetriksReporter.setup self
 
-  # Load New Relic RPM and Hoptoad in the production and staging environments.
+  # Load New Relic RPM and Airbrake in the production and staging environments.
   configure(:production, :staging) do
     require 'newrelic_rpm'
     require_relative 'newrelic_instrumentation'
 
-    # Add your Hoptoad API key to the environment variable `HOPTOAD_API_KEY`
-    # to use Hoptoad to catalog your exceptions.
-    if ENV['HOPTOAD_API_KEY']
+    # Add your Airbrake API key to the environment variable `AIRBRAKE_API_KEY`
+    # to use Airbrake to catalog your exceptions.
+    if ENV['AIRBRAKE_API_KEY']
       require 'active_support'
       require 'active_support/core_ext/object/blank'
-      require 'hoptoad_notifier'
+      require 'airbrake'
 
-      HoptoadNotifier.configure do |config|
-        config.api_key = ENV['HOPTOAD_API_KEY']
+      Airbrake.configure do |config|
+        config.api_key = ENV['AIRBRAKE_API_KEY']
       end
 
-      use HoptoadNotifier::Rack
+      use Airbrake::Rack
       enable :raise_errors
     end
   end
@@ -79,7 +79,7 @@ class Pollex < Sinatra::Base
       end
     rescue => e
       env['async.callback'].call [ 500, {}, error_content_for(:error) ]
-      HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
+      Airbrake.notify_or_ignore e if defined? Airbrake
     end
   end
 
@@ -104,7 +104,7 @@ protected
     send_file thumbnail.file, :disposition => 'inline',
                               :type        => thumbnail.type
   rescue Thumbnail::Error => e
-    HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
+    Airbrake.notify_or_ignore e if defined? Airbrake
     render_drop_icon thumbnail
   end
 

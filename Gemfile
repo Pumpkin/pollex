@@ -13,7 +13,7 @@ gem 'sinatra'
 gem 'thin'
 gem 'yajl-ruby'
 
-gem 'hoptoad_notifier'
+gem 'airbrake'
 gem 'newrelic_rpm'
 
 gem 'foreman', group: 'development'
