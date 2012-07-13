@@ -30,21 +30,6 @@ describe Thumbnail do
     end
   end
 
-  it 'reports on thumbnail job' do
-    EM.synchrony do
-      VCR.use_cassette 'same_size' do
-        Thumbnail.new(Drop.find('hhgttg')).file
-        @fake_stdout.rewind
-
-        report = @fake_stdout.read
-        expected = /complete: { "duration": [\d\.]+, "type": "png", "height": 150, "width": 200 }/
-        assert { report =~ expected }
-
-        EM.stop
-      end
-    end
-  end
-
   it 'scales down a large image' do
     EM.synchrony do
       VCR.use_cassette 'large_same_dimensions' do

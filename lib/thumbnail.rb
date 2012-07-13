@@ -1,9 +1,8 @@
 require 'em-synchrony'
 require 'em-synchrony/em-http'
-
+require 'metriks'
 require 'mini_magick'
 require 'tempfile'
-require_relative 'thumbnail_reporter'
 
 # Thumbnail
 # ---------
@@ -20,14 +19,13 @@ class Thumbnail < Struct.new(:drop)
     raise NotImage.new unless drop.image?
 
     @file ||= begin
-                reporter = ThumbnailReporter.start(type:   type,
-                                                   height: height,
-                                                   width:  width)
-                image.format('png')
-                resize_image(reporter)
-                image.
-                  write(tempfile).
-                  flush
+                Metriks.timer('pollex.thumbnail').time do
+                  image.format('png')
+                  resize_image
+                  image.
+                    write(tempfile).
+                    flush
+                end
               end
   end
 
@@ -51,7 +49,9 @@ protected
 
   # Return the **MiniMagick::Image** for the **Drop**.
   def image
-    @image ||= MiniMagick::Image.read(data, extname)
+    @image ||= Metriks.timer('pollex.thumbnail.download').time do
+                 MiniMagick::Image.read(data, extname)
+               end
   end
 
   # Download and return the **Drop's** remote file.
@@ -61,7 +61,7 @@ protected
 
   # Resize `image` preserving aspect ratio and crop to fit within 250x150.
   # Images smaller are not altered.
-  def resize_image(reporter)
+  def resize_image
     image.combine_options do |c|
       c.resize  '200x150^' if image_too_large?
       c.gravity 'northwest'
@@ -71,9 +71,8 @@ protected
       c.gravity 'center'
       c.extent '200x150'
     end
-    reporter.complete
   rescue MiniMagick::Error
-    reporter.killed
+    Metriks.meter('pollex.thumbnail.killed').mark
     raise Error
   end
 
