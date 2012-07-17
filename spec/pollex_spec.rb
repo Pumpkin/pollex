@@ -37,6 +37,19 @@ describe Pollex do
     end
   end
 
+  it 'returns thunbnail for a typed drop' do
+    VCR.use_cassette 'small' do
+      EM.synchrony do
+        $stdout = StringIO.new
+        get '/image/hhgttg'
+        EM.stop
+
+        assert { last_response.ok? }
+        assert { last_response.headers['Content-Type'] == 'image/png' }
+      end
+    end
+  end
+
   it 'returns not found for a nonexistent drop' do
     VCR.use_cassette 'nonexistent' do
       EM.synchrony do
