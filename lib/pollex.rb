@@ -66,7 +66,6 @@ class Pollex < Sinatra::Base
   # Generate and render a thumbnail for an image `Drop` given its slug or
   # render a file type icon. Thumbnails of images are cached privately for 1
   # day and generic file type icons are cached publicly for one year.
-  # get '/:slug' do |slug|
   get %r{^                         #
          (?:/(text|code|image))?   # Optional drop type
          /([^/?#]+)                # Item slug
