@@ -8,8 +8,6 @@ describe Pollex do
   include Rack::Test::Methods
   def app() Pollex end
 
-  after do $stdout = STDOUT end
-
   it 'redirects the home page to the CloudApp product page' do
     get '/'
 
@@ -17,13 +15,13 @@ describe Pollex do
 
     headers = last_response.headers
     assert { headers['Location'] == 'http://getcloudapp.com' }
+    assert { Time.now - Time.parse(headers['Date']) < 2.0 }
     assert { headers['Cache-Control'] == 'public, max-age=31557600' }
   end
 
   it 'returns thunbnail for drop' do
     VCR.use_cassette 'small' do
       EM.synchrony do
-        $stdout = StringIO.new
         get '/hhgttg'
         EM.stop
 
@@ -32,7 +30,23 @@ describe Pollex do
         headers = last_response.headers
         assert { headers['Content-Type'] == 'image/png' }
         assert { headers['Content-Disposition'] == 'inline' }
+        assert { Time.now - Time.parse(headers['Date']) < 2.0 }
         assert { headers['Cache-Control'] == 'public, max-age=900' }
+        assert { headers['Last-Modified'] == 'Fri, 25 Mar 2011 19:04:30 GMT' }
+      end
+    end
+  end
+
+  it 'returns a not modified response for cached drop' do
+    VCR.use_cassette 'small' do
+      EM.synchrony do
+        header 'If-Modified-Since', 'Fri, 25 Mar 2011 19:04:30 GMT'
+        get '/image/hhgttg'
+        EM.stop
+
+        assert { last_response.status == 304 }
+        assert { last_response.empty? }
+        assert { Time.now - Time.parse(last_response.headers['Date']) < 2.0 }
       end
     end
   end
@@ -40,7 +54,6 @@ describe Pollex do
   it 'returns thunbnail for a typed drop' do
     VCR.use_cassette 'small' do
       EM.synchrony do
-        $stdout = StringIO.new
         get '/image/hhgttg'
         EM.stop
 
@@ -72,6 +85,7 @@ describe Pollex do
 
         headers = last_response.headers
         assert { headers['Location'] == 'http://example.org/icons/text.png' }
+        assert { Time.now - Time.parse(headers['Date']) < 2.0 }
         assert { headers['Cache-Control'] == 'public, max-age=31557600' }
       end
     end
@@ -87,9 +101,9 @@ describe Pollex do
 
         headers = last_response.headers
         assert { headers['Location'] == 'http://example.org/icons/unknown.png' }
+        assert { Time.now - Time.parse(headers['Date']) < 2.0 }
         assert { headers['Cache-Control'] == 'public, max-age=31557600' }
       end
     end
   end
-
 end

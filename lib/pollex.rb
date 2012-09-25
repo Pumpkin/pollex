@@ -59,6 +59,7 @@ class Pollex < Sinatra::Base
   # The home page. Nothing to see here. Redirect to the CloudApp product page.
   # Response is cached for one year.
   get '/' do
+    response['Date'] = Time.now.httpdate
     cache_control :public, :max_age => 31557600
     redirect 'http://getcloudapp.com'
   end
@@ -72,6 +73,8 @@ class Pollex < Sinatra::Base
          $}x do |type, slug|
     begin
       thumbnail = Thumbnail.new find_drop(slug)
+      response['Date'] = Time.now.httpdate
+      last_modified thumbnail.drop.created_at
 
       if thumbnail.drop.image?
         cache_control :public, :max_age => 900
