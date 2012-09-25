@@ -12,7 +12,7 @@ class MetriksReporter
   end
 
   def insert_middleware
-    @app.use Metriks::Middleware, name: 'pollex'
+    @app.use Metriks::Middleware
   end
 
   def report_metrics
