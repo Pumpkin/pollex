@@ -32,7 +32,7 @@ describe Pollex do
         headers = last_response.headers
         assert { headers['Content-Type'] == 'image/png' }
         assert { headers['Content-Disposition'] == 'inline' }
-        assert { headers['Cache-Control'] == 'private, max-age=900' }
+        assert { headers['Cache-Control'] == 'public, max-age=900' }
       end
     end
   end

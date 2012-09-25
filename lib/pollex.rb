@@ -74,7 +74,7 @@ class Pollex < Sinatra::Base
       thumbnail = Thumbnail.new find_drop(slug)
 
       if thumbnail.drop.image?
-        cache_control :private, :max_age => 900
+        cache_control :public, :max_age => 900
         render_thumbnail thumbnail
       else
         cache_control :public, :max_age => 31557600
