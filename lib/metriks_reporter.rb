@@ -23,6 +23,7 @@ class MetriksReporter
       source   = Socket.gethostname
       on_error = ->(e) do STDOUT.puts("LibratoMetrics: #{ e.message }") end
       Metriks::Reporter::LibratoMetrics.new(user, token,
+                                            prefix:   prefix,
                                             on_error: on_error,
                                             source:   source).start
     else
@@ -38,5 +39,9 @@ class MetriksReporter
 
   def token
     ENV['LIBRATO_METRICS_TOKEN']
+  end
+
+  def prefix
+    ENV['LIBRATO_METRICS_PREFIX']
   end
 end

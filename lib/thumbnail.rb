@@ -19,7 +19,7 @@ class Thumbnail < Struct.new(:drop)
     raise NotImage.new unless drop.image?
 
     @file ||= begin
-                Metriks.timer('pollex.thumbnail').time do
+                Metriks.timer('thumbnail').time do
                   image.format('png')
                   resize_image
                   image.
@@ -49,7 +49,7 @@ protected
 
   # Return the **MiniMagick::Image** for the **Drop**.
   def image
-    @image ||= Metriks.timer('pollex.thumbnail.download').time do
+    @image ||= Metriks.timer('thumbnail.download').time do
                  MiniMagick::Image.read(data, extname)
                end
   end
@@ -72,7 +72,7 @@ protected
       c.extent '200x150'
     end
   rescue MiniMagick::Error
-    Metriks.meter('pollex.thumbnail.killed').mark
+    Metriks.meter('thumbnail.killed').mark
     raise Error
   end
 
