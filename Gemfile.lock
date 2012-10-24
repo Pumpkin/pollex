@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/lmarburger/metriks-middleware.git
+  revision: 4a6d2067b728fe0c04b5c38073153c57be21fb8e
+  specs:
+    metriks-middleware (1.2.2)
+      metriks (~> 0.9.9)
+
+GIT
   remote: https://github.com/lmarburger/mini_magick.git
   revision: 9b46dacb6c74010c389e2f947707fd63c5f3ae20
   branch: refactor_system_call
@@ -66,8 +73,6 @@ GEM
       atomic (~> 1.0)
       avl_tree (~> 1.1.2)
       hitimes (~> 1.1)
-    metriks-middleware (1.2.1)
-      metriks (~> 0.9.9)
     multi_json (1.3.6)
     newrelic_rpm (3.4.0.1)
     predicated (0.2.6)
@@ -117,7 +122,7 @@ DEPENDENCIES
   foreman
   hitimes
   metriks
-  metriks-middleware
+  metriks-middleware!
   mini_magick!
   newrelic_rpm
   rack-fiber_pool
