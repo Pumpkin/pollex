@@ -32,8 +32,6 @@ class Pollex < Sinatra::Base
     # Add your Airbrake API key to the environment variable `AIRBRAKE_API_KEY`
     # to use Airbrake to catalog your exceptions.
     if ENV['AIRBRAKE_API_KEY']
-      require 'active_support'
-      require 'active_support/core_ext/object/blank'
       require 'airbrake'
 
       Airbrake.configure do |config|
