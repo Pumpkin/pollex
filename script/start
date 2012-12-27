@@ -1,0 +1,6 @@
+#!/bin/sh
+
+RACK_ENV=development CLOUDAPP_DOMAIN=api.cld.dev bundle exec thin start -p 3001
+
+# alias start="RACK_ENV=none CLOUDAPP_DOMAIN=cld.dev foreman start"
+# alias start-stage="RACK_ENV=none CLOUDAPP_DOMAIN=www.vapor.ly foreman start"
