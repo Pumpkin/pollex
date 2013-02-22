@@ -1,11 +1,12 @@
-source :gemcutter
+source 'https://rubygems.org'
 
 gem 'rake'
 gem 'em-http-request', '~> 1.0'
 gem 'em-synchrony',    '~> 1.0'
 gem 'hitimes'
 gem 'metriks'
-gem 'metriks-middleware'
+gem 'metriks-middleware', github: 'lmarburger/metriks-middleware',
+                          branch: 'legacy-queue-wait'
 gem 'mini_magick',     git:    'https://github.com/lmarburger/mini_magick.git',
                        branch: 'refactor_system_call'
 gem 'rack-fiber_pool'
