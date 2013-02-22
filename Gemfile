@@ -15,7 +15,6 @@ gem 'thin'
 gem 'yajl-ruby'
 
 gem 'airbrake'
-gem 'newrelic_rpm'
 
 gem 'foreman', group: 'development'
 

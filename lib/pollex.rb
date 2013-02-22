@@ -24,11 +24,8 @@ class Pollex < Sinatra::Base
   require_relative 'metriks_reporter'
   MetriksReporter.setup self
 
-  # Load New Relic RPM and Airbrake in the production and staging environments.
+  # Load Airbrake in the production and staging environments.
   configure(:production, :staging) do
-    require 'newrelic_rpm'
-    require_relative 'newrelic_instrumentation'
-
     # Add your Airbrake API key to the environment variable `AIRBRAKE_API_KEY`
     # to use Airbrake to catalog your exceptions.
     if ENV['AIRBRAKE_API_KEY']
