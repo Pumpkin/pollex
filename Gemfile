@@ -21,6 +21,4 @@ group :test do
   gem 'rack-test'
   gem 'vcr', '~> 1.11.3'
   gem 'webmock'
-  gem 'wrong', git:    'https://github.com/sconover/wrong.git',
-               branch: 'rb-1.9.3-p0'
 end
