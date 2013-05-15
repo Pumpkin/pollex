@@ -49,9 +49,7 @@ protected
 
   # Return the **MiniMagick::Image** for the **Drop**.
   def image
-    @image ||= Metriks.timer('thumbnail.download').time do
-                 MiniMagick::Image.read(data, extname)
-               end
+    @image ||= MiniMagick::Image.read(data, extname)
   end
 
   # Download and return the **Drop's** remote file.
@@ -72,7 +70,6 @@ protected
       c.extent '200x150'
     end
   rescue MiniMagick::Error
-    Metriks.meter('thumbnail.killed').mark
     raise Error
   end
 
