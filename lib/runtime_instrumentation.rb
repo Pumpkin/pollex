@@ -10,15 +10,15 @@ class RuntimeInstrumentation
   end
 
   def eventmachine_delay
-    if EventMachine.reactor_running? && !@em_periodic_timer
-      histogram = Metriks.histogram("#{@metric_prefix}.eventmachine.variance")
-      em_interval = nil
+    return if @em_periodic_timer
 
-      EM.next_tick do
-        @em_periodic_timer = EM.add_periodic_timer(@interval) do
-          histogram.update(em_interval.duration - @interval) if em_interval
-          em_interval = Hitimes::Interval.now
-        end
+    histogram = Metriks.histogram("#{@metric_prefix}.eventmachine.variance")
+    em_interval = nil
+
+    EM.next_tick do
+      @em_periodic_timer = EM.add_periodic_timer(@interval) do
+        histogram.update(em_interval.duration - @interval) if em_interval
+        em_interval = Hitimes::Interval.now
       end
     end
   end
