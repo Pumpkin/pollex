@@ -1,4 +1,5 @@
 require 'metriks/middleware'
+require_relative 'runtime_instrumentation'
 
 class MetriksReporter
   def initialize(app)
@@ -8,6 +9,7 @@ class MetriksReporter
   def self.setup(app)
     reporter = new app
     reporter.insert_middleware
+    reporter.load_runtime_instrumentation
     reporter.report_metrics
   end
 
@@ -15,18 +17,22 @@ class MetriksReporter
     @app.use Metriks::Middleware
   end
 
-  def report_metrics
-    if user && token
-      require 'metriks/reporter/librato_metrics'
-      require 'socket'
+  def load_runtime_instrumentation
+    RuntimeInstrumentation.new.start
+  end
 
-      source   = Socket.gethostname
-      on_error = ->(e) do STDOUT.puts("LibratoMetrics: #{ e.message }") end
-      Metriks::Reporter::LibratoMetrics.new(user, token,
-                                            prefix:   prefix,
-                                            on_error: on_error,
-                                            source:   source).start
-    end
+  def report_metrics
+    return unless user && token
+
+    require 'metriks/reporter/librato_metrics'
+    require 'socket'
+
+    source   = Socket.gethostname
+    on_error = ->(e) do STDOUT.puts("LibratoMetrics: #{ e.message }") end
+    Metriks::Reporter::LibratoMetrics.new(user, token,
+                                          prefix:   prefix,
+                                          on_error: on_error,
+                                          source:   source).start
   end
 
   def user
