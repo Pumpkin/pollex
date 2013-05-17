@@ -1,5 +1,0 @@
-#!/bin/sh
-
-git push &&
-  git push staging master &&
-  git push production master
