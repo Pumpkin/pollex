@@ -5,7 +5,7 @@ gem 'metriks-middleware'
 gem 'puma'
 gem 'rack'
 
-group :spec do
+group :test do
   gem 'rack-test'
   gem 'rspec'
   gem 'webmock'
