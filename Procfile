@@ -1,1 +1,1 @@
-web: bundle exec puma -p $PORT -t $THREADS
+web: bundle exec puma -I lib -p $PORT -t $THREADS

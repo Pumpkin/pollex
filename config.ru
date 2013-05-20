@@ -1,4 +1,4 @@
-require './lib/pollex'
+require 'pollex'
 
 public_file_urls = Dir['public/**/*'].select {|x| File.file?(x) }
                                      .map {|s| s.sub(/^public/, '') }
