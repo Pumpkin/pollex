@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'metriks-middleware'
 gem 'puma'
 gem 'rack'
 
