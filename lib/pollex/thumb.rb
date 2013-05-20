@@ -2,6 +2,10 @@ require 'open3'
 
 module Pollex
   Thumb = Struct.new(:file, :slug) do
+    def success?
+      dimensions != :error
+    end
+
     def size
       File.size(thumbnail.path)
     end
@@ -39,10 +43,15 @@ module Pollex
       args
     end
 
+    def dimensions
+      identify_command       = %w(identify -quiet -format %w\ %h)
+      stdout, stderr, status = Open3.capture3(*identify_command, file.path)
+      return :error unless status.success?
+      stdout.chomp.split(' ').map(&:to_i)
+    end
+
     def image_too_large?
-      identify_command = %w(identify -quiet -format %w\ %h)
-      stdout, status   = Open3.capture2(*identify_command, file.path)
-      width,  height   = stdout.chomp.split(' ').map(&:to_i)
+      width, height = dimensions
       width > 200 && height > 150
     end
   end

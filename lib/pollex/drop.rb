@@ -3,10 +3,11 @@ require 'net/http'
 
 module Pollex
   Drop = Struct.new(:slug) do
-    API_DOMAIN = URI.parse("http://#{ENV.fetch('CLOUDAPP_DOMAIN')}")
+    CLOUDAPP_DOMAIN = ENV.fetch('CLOUDAPP_DOMAIN', 'api.cld.me')
+    API_URI         = URI.parse("http://#{CLOUDAPP_DOMAIN}")
 
-    def self.download(slug)
-      new(slug).file
+    def found?
+      !fetch_api.nil?
     end
 
     def file
@@ -16,32 +17,37 @@ module Pollex
       end
     end
 
-    protected
-
-    def remote_url
-      @remote_url ||= fetch_api['remote_url']
-    end
-
     def filename
       File.basename(remote_url)
     end
 
+    def type
+      fetch_api['item_type']
+    end
+
+    protected
+
+    def remote_url
+      fetch_api['remote_url']
+    end
+
     def uri
-      @uri ||= URI.parse(remote_url)
+      URI.parse(remote_url)
     end
 
     def fetch_api
-      api = nil
-      Net::HTTP.start(API_DOMAIN.host, API_DOMAIN.port) do |http|
-        request = Net::HTTP::Get.new("/#{slug}")
-        request['accept'] = 'application/json'
+      @api_response ||= begin
+        api = nil
+        Net::HTTP.start(API_URI.host, API_URI.port) do |http|
+          request = Net::HTTP::Get.new("/#{slug}")
+          request['accept'] = 'application/json'
 
-        http.request(request) do |response|
-          response.error! unless Net::HTTPSuccess === response
-          api = JSON.parse(response.body)
+          http.request(request) do |response|
+            api = JSON.parse(response.body) if Net::HTTPSuccess === response
+          end
         end
+        api
       end
-      api
     end
 
     def download_file(img)

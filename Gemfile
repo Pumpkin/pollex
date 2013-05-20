@@ -1,6 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rack'
 gem 'puma'
+gem 'rack'
 
-gem 'rspec', group: :spec
+group :spec do
+  gem 'rack-test'
+  gem 'rspec'
+  gem 'webmock'
+  gem 'vcr'
+end
