@@ -16,12 +16,7 @@ module Pollex
 
     def self.report(user  = ENV['LIBRATO_METRICS_USER'],
                     token = ENV['LIBRATO_METRICS_TOKEN'])
-      unless user && token
-        require 'metriks/reporter/logger'
-        Metriks::Reporter::Logger.new(logger:   Logger.new($stdout),
-                                      interval: 5).start
-        return
-      end
+      return unless user && token
 
       require 'metriks/reporter/librato_metrics'
 
