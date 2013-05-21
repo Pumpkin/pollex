@@ -14,4 +14,5 @@ use Rack::Static, urls: public_file_urls, root: 'public'
 use Rack::Timeout
 Rack::Timeout.timeout = 15
 
+use Pollex::Homepage
 run Pollex::Middleware

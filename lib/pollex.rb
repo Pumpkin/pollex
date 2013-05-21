@@ -1,6 +1,7 @@
 require 'pollex/drop'
 require 'pollex/exception_tracking'
 require 'pollex/handle_exceptions'
+require 'pollex/homepage'
 require 'pollex/instrumentation'
 require 'pollex/middleware'
 require 'pollex/thumb'
