@@ -1,3 +1,4 @@
+require 'helper'
 require 'pollex/middleware'
 
 describe Pollex::Middleware do

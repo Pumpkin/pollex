@@ -1,17 +1,8 @@
-require 'helper'
-require 'pollex'
-require 'rack/test'
-require 'webmock/rspec'
-require 'vcr'
-
-VCR.configure do |config|
-  config.cassette_library_dir = 'spec/cassettes'
-  config.hook_into :webmock
-end
+require 'integration_helper'
 
 describe Pollex, type: :feature do
   include Rack::Test::Methods
-  let(:app) { Pollex::Middleware }
+  let(:app) { Rack::Lint.new(Pollex::Middleware) }
 
   it 'thumbnails a PNG' do
     VCR.use_cassette('png') do

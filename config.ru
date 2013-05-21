@@ -1,8 +1,5 @@
 require 'rack-timeout'
 require 'pollex'
-require 'pollex/exception_tracking'
-require 'pollex/handle_exceptions'
-require 'pollex/instrumentation'
 
 # Catch exceptions and return a 500 downstream from metriks/middleware.
 Pollex::Instrumentation.setup(self)
