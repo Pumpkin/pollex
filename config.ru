@@ -4,9 +4,10 @@ require 'pollex/exception_tracking'
 require 'pollex/handle_exceptions'
 require 'pollex/instrumentation'
 
+# Catch exceptions and return a 500 downstream from metriks/middleware.
+Pollex::Instrumentation.setup(self)
 use Pollex::HandleExceptions
 Pollex::ExceptionTracking.setup(self)
-Pollex::Instrumentation.setup(self)
 
 public_file_urls = Dir['public/**/*'].select {|x| File.file?(x) }
                                      .map {|s| s.sub(/^public/, '') }
