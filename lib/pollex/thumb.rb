@@ -35,7 +35,7 @@ module Pollex
       args = %W(-gravity northwest
                 -crop 200x150+0+0
                 +repage
-                -background red
+                -background transparent
                 -gravity center
                 -extent 200x150
                 #{file.path}[0])
