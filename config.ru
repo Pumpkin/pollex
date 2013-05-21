@@ -1,8 +1,10 @@
 require 'rack-timeout'
 require 'pollex'
 require 'pollex/exception_tracking'
+require 'pollex/handle_exceptions'
 require 'pollex/instrumentation'
 
+use Pollex::HandleExceptions
 Pollex::ExceptionTracking.setup(self)
 Pollex::Instrumentation.setup(self)
 
