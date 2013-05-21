@@ -17,7 +17,8 @@ describe Pollex, type: :feature do
     VCR.use_cassette('png') do
       get '/2I3x0X0N3G3Q'
       expect(last_response).to be_ok
-      expect(last_response.headers['content-length']).to eq('8090')
+      content_length = last_response.headers['content-length'].to_i
+      expect(content_length).to be_within(10).of(8090)
     end
   end
 
@@ -25,7 +26,8 @@ describe Pollex, type: :feature do
     VCR.use_cassette('gif') do
       get '/1H0H0a2M0X2r'
       expect(last_response).to be_ok
-      expect(last_response.headers['content-length']).to eq('1530')
+      content_length = last_response.headers['content-length'].to_i
+      expect(content_length).to be_within(10).of(1530)
     end
   end
 
