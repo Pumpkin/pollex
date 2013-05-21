@@ -3,7 +3,7 @@ require 'open3'
 module Pollex
   Thumb = Struct.new(:file, :slug) do
     def success?
-      dimensions != :error
+      identify_image != :error
     end
 
     def size
@@ -22,13 +22,22 @@ module Pollex
 
     def thumbnail
       @thumbnail ||= Tempfile.open("#{slug}.png") do |thumbnail|
-        generate_thumbnail(thumbnail.path)
+        system 'convert', *convert_arguments, thumbnail.path
         thumbnail
       end
     end
 
-    def generate_thumbnail(output_path)
-      system 'convert', *convert_arguments, output_path
+    def image_too_large?
+      width, height = identify_image
+      width > 200 && height > 150
+    end
+
+    def identify_image
+      @identify_image ||= begin
+        identify_command       = %w(identify -quiet -format %w\ %h)
+        stdout, stderr, status = Open3.capture3(*identify_command, file.path)
+        status.success? ? stdout.chomp.split(' ').map(&:to_i) : :error
+      end
     end
 
     def convert_arguments
@@ -41,18 +50,6 @@ module Pollex
                 #{file.path}[0])
       args.unshift *%w(-resize 200x150^) if image_too_large?
       args
-    end
-
-    def dimensions
-      identify_command       = %w(identify -quiet -format %w\ %h)
-      stdout, stderr, status = Open3.capture3(*identify_command, file.path)
-      return :error unless status.success?
-      stdout.chomp.split(' ').map(&:to_i)
-    end
-
-    def image_too_large?
-      width, height = dimensions
-      width > 200 && height > 150
     end
   end
 end
