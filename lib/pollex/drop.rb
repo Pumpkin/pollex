@@ -10,6 +10,7 @@ module Pollex
       !fetch_api.nil?
     end
 
+    # TODO: Set a timeout on the download
     def file
       Tempfile.open(filename) do |img|
         download_file(img)
