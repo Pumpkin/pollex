@@ -53,4 +53,11 @@ describe Pollex, type: :feature do
       expect(last_response.headers['content-type']).to eq('text/html')
     end
   end
+
+  it 'handles drops with disallowed characters in its url' do
+    VCR.use_cassette('disallowed_characters') do
+      get '/2g2H3M3S0Y2m'
+      expect(last_response).to be_ok
+    end
+  end
 end

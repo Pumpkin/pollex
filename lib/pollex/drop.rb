@@ -3,8 +3,15 @@ require 'net/http'
 
 module Pollex
   Drop = Struct.new(:slug) do
+
+    # Allow brackets in URLs
+    def self.uri_parser
+      @uri_parser ||=
+        URI::Parser.new(UNRESERVED: URI::REGEXP::PATTERN::UNRESERVED + "\\[\\]")
+    end
+
     CLOUDAPP_DOMAIN = ENV.fetch('CLOUDAPP_DOMAIN', 'api.cld.me')
-    API_URI         = URI.parse("http://#{CLOUDAPP_DOMAIN}")
+    API_URI         = uri_parser.parse("http://#{CLOUDAPP_DOMAIN}")
 
     def found?
       !fetch_api.nil?
@@ -33,7 +40,7 @@ module Pollex
     end
 
     def uri
-      URI.parse(remote_url)
+      self.class.uri_parser.parse(remote_url)
     end
 
     def fetch_api
