@@ -1,9 +1,12 @@
+require 'posix/spawn'
 require 'open3'
 
 module Pollex
   Thumb = Struct.new(:file, :slug) do
+    TIMEOUT = ENV.fetch('THUMBNAIL_TIMEOUT', 15)
+
     def success?
-      identify_image != :error
+      identify_image != :error && thumbnail != :error
     end
 
     def size
@@ -21,23 +24,36 @@ module Pollex
     protected
 
     def thumbnail
-      @thumbnail ||= Tempfile.open("#{slug}.png") do |thumbnail|
-        system 'convert', *convert_arguments, thumbnail.path
-        thumbnail
-      end
+      @thumbnail ||= Tempfile.open("#{slug}.png") {|file| generate(file) }
+    end
+
+    def identify_image
+      @identify_image ||= execute_identify
+    end
+
+    def execute_identify
+      identify_command = %w(identify -quiet -format %w\ %h)
+      child = POSIX::Spawn::Child.new(*identify_command, file.path,
+                                      timeout: TIMEOUT)
+      return :error unless child.success?
+      child.out.chomp.split(' ').map(&:to_i)
+    rescue POSIX::Spawn::TimeoutExceeded
+      :error
+    end
+
+    def generate(thumbnail)
+      child = POSIX::Spawn::Child.new('convert', *convert_arguments,
+                                      thumbnail.path,
+                                      timeout: TIMEOUT)
+      return :error unless child.success?
+      thumbnail
+    rescue POSIX::Spawn::TimeoutExceeded
+      :error
     end
 
     def image_too_large?
       width, height = identify_image
       width > 200 && height > 150
-    end
-
-    def identify_image
-      @identify_image ||= begin
-        identify_command       = %w(identify -quiet -format %w\ %h)
-        stdout, stderr, status = Open3.capture3(*identify_command, file.path)
-        status.success? ? stdout.chomp.split(' ').map(&:to_i) : :error
-      end
     end
 
     def convert_arguments
