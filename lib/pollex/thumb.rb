@@ -6,7 +6,7 @@ module Pollex
     TIMEOUT = ENV.fetch('THUMBNAIL_TIMEOUT', 15)
 
     def success?
-      identify_image != :error && thumbnail != :error
+      thumbnail != :error
     end
 
     def size
@@ -24,7 +24,9 @@ module Pollex
     protected
 
     def thumbnail
-      @thumbnail ||= Tempfile.open("#{slug}.png") {|file| generate(file) }
+      @thumbnail ||= identify_image == :error ?
+        :error :
+        Tempfile.open("#{slug}.png") {|file| generate(file) }
     end
 
     def identify_image
