@@ -47,9 +47,7 @@ module Pollex
 
     def drop_type(drop)
       return :bookmark if drop.type == 'bookmark'
-
-      extension = File.extname(drop.filename)
-      return :image if image_extensions.include?(extension)
+      return :image    if image_extensions.include?(drop.extension)
 
       icon_exists?(drop.type) ? drop.type : 'unknown'
     end

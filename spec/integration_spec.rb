@@ -22,6 +22,20 @@ describe Pollex, type: :feature do
     end
   end
 
+  it 'thumbnails an image format without magic number identifier' do
+    VCR.use_cassette('ico') do
+      get '/27433B1O0x0O'
+      expect(last_response).to be_ok
+    end
+  end
+
+  it 'thumbnails an image with a too long file name' do
+    VCR.use_cassette('too_long') do
+      get '/0j0T2z0E3T2c'
+      expect(last_response).to be_ok
+    end
+  end
+
   it 'returns icon for a bookmark' do
     VCR.use_cassette('bookmark') do
       get '/1H1U0d0M2L0V'

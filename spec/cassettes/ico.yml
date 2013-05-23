@@ -1,0 +1,122 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.cld.me/27433B1O0x0O
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - public; max-age=900
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 22 May 2013 01:21:56 GMT
+      Etag:
+      - ! '"60b5494dbbedaf21d5725ce4462035b8"'
+      Status:
+      - 200 OK
+      Vary:
+      - Accept
+      X-Runtime:
+      - '0.042807'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"created_at":"2013-05-22T01:21:17Z","deleted_at":null,"id":29739199,"item_type":"image","name":"favicon.ico","private":true,"redirect_url":null,"remote_url":"http://f.cl.ly/items/0x2v2m3B2c0W203J0K3z/favicon.ico","source":"Mozilla/5.0
+        (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.31 (KHTML, like Gecko)
+        Chrome/26.0.1410.65 Safari/537.31","updated_at":"2013-05-22T01:21:17Z","view_counter":1,"href":"http://my.cl.ly/items/29739199","icon":"http://my.cld.me/images/item-types/image.png","subscribed":false,"url":"http://cl.ly/image/27433B1O0x0O","content_url":"http://cl.ly/image/27433B1O0x0O/favicon.ico","download_url":"http://cl.ly/image/27433B1O0x0O/download/favicon.ico","thumbnail_url":"http://thumbs.getcloudapp.com/27433B1O0x0O","last_viewed_at":"2013-05-22T01:21:19Z"}'
+    http_version: 
+  recorded_at: Wed, 22 May 2013 01:21:56 GMT
+- request:
+    method: get
+    uri: http://f.cl.ly/items/0x2v2m3B2c0W203J0K3z/favicon.ico
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "WC1BbXotSWQtMg==":
+      - !binary |-
+        S3FQVWxUUzM3OVdTOEFjVjhPUUZSU29QSldBWW8vOUNoMVRFb3Q4bEpXTm05
+        ekJ2S2Y2b0dtSFVvTXM4K3Ztcw==
+      !binary "WC1BbXotUmVxdWVzdC1JZA==":
+      - !binary |-
+        REVFQkE3RjdGNzdFNERERg==
+      !binary "RGF0ZQ==":
+      - !binary |-
+        V2VkLCAyMiBNYXkgMjAxMyAwMToyMTo1OCBHTVQ=
+      !binary "TGFzdC1Nb2RpZmllZA==":
+      - !binary |-
+        V2VkLCAyMiBNYXkgMjAxMyAwMToyMToxOCBHTVQ=
+      !binary "RXRhZw==":
+      - !binary |-
+        IjU2N2QyZDQ5ZDJkMzBlMmRiOTU2ZDY4MGE0ZDAzZjI1Ig==
+      !binary "QWNjZXB0LVJhbmdlcw==":
+      - !binary |-
+        Ynl0ZXM=
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        aW1hZ2Uvdm5kLm1pY3Jvc29mdC5pY29u
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTE1MA==
+      !binary "U2VydmVy":
+      - !binary |-
+        QW1hem9uUzM=
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAA
+        ACAcAAAgHAAAAAAAAAAAAACFMhFBhTIR0IUyEeaFMhHmhTIR5oUyEeaFMhHm
+        hTIR5oUyEeaFMhHmhTIR5oUyEeaFMhHmhTIR5oUyEdCFMhFBhzUTzpxHHfek
+        TSD/pE0g/6RNIP+kTSD/pE0g/6RNIP+kTSD/pE0g/6RNIP+kTSD/pE0g/6RN
+        IP+cRx33hzUTzog4FuamUSP/plEj/6ZRI/+mUSP/plEj/6ZRI/+mUSP/plEj
+        /6ZRI/+mUSP/plEj/6ZRI/+mUSP/plEj/4g4FuaKOxrmqVYo/6dVJ/+FQB3/
+        bzMW/2swFf9rMBX/azAV/2swFf9rMBX/azAV/3Q1GP+KQx//qFUo/6lWKP+K
+        OxrmjD8d5qtbLP+HRyT/s4dv/9+7pf/oxbD/6MWw/+jFsP/oxbD/6MWw/+jF
+        sP/WsJr/qXtj/4lHIv+rWyz/jD8d5o5CIeavYTL/vpV//+rLuP/qy7j/6su4
+        /+rLuP/qy7j/6su4/+rLuP/qy7j/6su4/+rLuP+ziXH/rF8x/45CIeaQRiXm
+        smc3/+jLu//t0sL/7dLC/+3Swv/t0sL/7dLC/+3Swv/t0sL/7dLC/+3Swv/t
+        0sL/7NDA/7NrPf+QRiXmkkoo5rRtPP/eu6X/8NrN//Dazf/w2s3/8NrN//Da
+        zf/w2s3/8NrN//Dazf/w2s3/8NrN/+3Vx/+1cD//kkoo5pVOLOa4c0L/vXxO
+        /+G/qP/04tj/9OLY//Ti2P/04tj/9OLY//Ti2P/04tj/9OLY//Ti2P/XrZH/
+        uHNC/5VOLOaXUjDmu3lH/7t5R/+7eUf/vX1M//Pl3P/36uL/9+ri//fq4v/3
+        6uL/9+ri/+/bzv/YsJL/vHpJ/7t5R/+XUjDmmVY05r5/Tf++f03/vn9N/75/
+        Tf/kybX/+vLs//ry7P/68uz/+vLs/+fOu/++f03/vn9N/75/Tf++f03/mVY0
+        5ptZN+bBhVH/wYVR/8GFUf/BhVH/xY1d/+fPuv/69O7/+fHq/+XLtf/Eiln/
+        wYVR/8GFUf/BhVH/wYVR/5tZN+adXTrmxIlX/8SJVv/EiVb/xIlW/8SJVv/E
+        iVb/xIlW/8SJVv/EiVb/xIlW/8SJVv/EiVb/xIlW/8SJV/+dXTrmnmA95sqV
+        Y//Gj1r/xo5Z/8aOWf/Gjln/xo5Z/8aOWf/Gjln/xo5Z/8aOWf/Gjln/xo5Z
+        /8aPWv/KlWP/nmA95qBiQNDGmXX206h//9Kme//Spnv/0qZ7/9Kme//Spnv/
+        0qZ7/9Kme//Spnv/0qZ7/9Kme//TqH//xpl19qBiQNChZUI5oWVCtaFlQuah
+        ZULmoWVC5qFlQuahZULmoWVC5qFlQuahZULmoWVC5qFlQuahZULmoWVC5qFl
+        QrWhZUI5AAAAAAAA8L8AAAAAAAAAAAAACQoAAAAAAAAAAAAAAAAAAAAAAAAA
+        AQAAAAAAAAAAAAD//wAA//8AAAMFAAAAAA==
+    http_version: 
+  recorded_at: Wed, 22 May 2013 01:21:57 GMT
+recorded_with: VCR 2.4.0

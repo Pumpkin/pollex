@@ -19,18 +19,18 @@ module Pollex
 
     # TODO: Set a timeout on the download
     def file
-      Tempfile.open(filename) do |img|
+      Tempfile.open([ slug, extension ]) do |img|
         download_file(img)
         img
       end
     end
 
-    def filename
-      File.basename(remote_url)
-    end
-
     def type
       fetch_api['item_type']
+    end
+
+    def extension
+      File.extname(remote_url)
     end
 
     protected

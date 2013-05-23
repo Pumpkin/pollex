@@ -6,12 +6,12 @@ describe Pollex::Middleware do
     let(:path)        { "/#{slug}" }
     let(:slug)        { 'abc123' }
     let(:drop_class)  { stub(:drop_class, new: drop) }
-    let(:drop)        { stub(:drop, file:     file,
-                                    found?:   found,
-                                    filename: filename,
-                                    type:     drop_type) }
+    let(:drop)        { stub(:drop, file:      file,
+                                    found?:    found,
+                                    extension: extension,
+                                    type:      drop_type) }
     let(:file)        { stub(:file) }
-    let(:filename)    { 'image.png' }
+    let(:extension)   { '.png' }
     let(:drop_type)   { 'image' }
     let(:found)       { true }
     let(:thumb_class) { stub(:thumb_class, new: thumb) }
@@ -47,7 +47,7 @@ describe Pollex::Middleware do
     end
 
     context 'a non-image drop' do
-      let(:filename)  { 'file.txt' }
+      let(:extension) { '.txt' }
       let(:drop_type) { 'text' }
 
       it 'redirects to the icon' do
@@ -57,7 +57,7 @@ describe Pollex::Middleware do
     end
 
     context 'an unknown file type' do
-      let(:filename)  { 'unknown' }
+      let(:extension) { '' }
       let(:drop_type) { 'unknown' }
 
       it 'redirects to the icon' do
