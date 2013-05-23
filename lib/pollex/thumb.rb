@@ -37,7 +37,7 @@ module Pollex
       identify_command = %w(identify -quiet -format %w\ %h)
       child = POSIX::Spawn::Child.new(*identify_command, file.path,
                                       timeout: TIMEOUT)
-      return :error unless child.success?
+      raise ArgumentError, child.err unless child.success?
       child.out.chomp.split(' ').map(&:to_i)
     rescue POSIX::Spawn::TimeoutExceeded
       :error
@@ -47,7 +47,7 @@ module Pollex
       child = POSIX::Spawn::Child.new('convert', *convert_arguments,
                                       thumbnail.path,
                                       timeout: TIMEOUT)
-      return :error unless child.success?
+      raise ArgumentError, child.err unless child.success?
       thumbnail
     rescue POSIX::Spawn::TimeoutExceeded
       :error

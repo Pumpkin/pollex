@@ -62,9 +62,7 @@ describe Pollex, type: :feature do
 
   it 'returns icon for an unprocessable image' do
     VCR.use_cassette('error') do
-      get '/3t3Q3t3y171P'
-      expect(last_response).to be_server_error
-      expect(last_response.headers['content-type']).to eq('text/html')
+      expect { get '/3t3Q3t3y171P' }.to raise_error(ArgumentError)
     end
   end
 
