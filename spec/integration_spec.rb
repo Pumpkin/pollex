@@ -4,8 +4,8 @@ describe Pollex, type: :feature do
   include Rack::Test::Methods
   let(:app) { Rack::Lint.new(Pollex::Middleware) }
 
-  it 'thumbnails a PNG' do
-    VCR.use_cassette('png') do
+  it 'thumbnails a JPG' do
+    VCR.use_cassette('jpg') do
       get '/2I3x0X0N3G3Q'
       expect(last_response).to be_ok
       content_length = last_response.headers['content-length'].to_i

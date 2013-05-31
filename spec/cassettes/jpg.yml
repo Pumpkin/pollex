@@ -21,15 +21,15 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 20 May 2013 18:10:33 GMT
+      - Fri, 31 May 2013 15:37:11 GMT
       Etag:
-      - ! '"dcba3221db95a71ca57f98cc2a4fc9ed"'
+      - ! '"daa50445b87a63d779d3d159753a078a"'
       Status:
       - 200 OK
       Vary:
       - Accept
       X-Runtime:
-      - '0.029772'
+      - '0.056801'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Transfer-Encoding:
@@ -41,9 +41,9 @@ http_interactions:
       string: ! '{"created_at":"2013-05-18T19:36:17Z","deleted_at":null,"id":29646412,"item_type":"image","name":"Screen
         Shot 2013-05-18 at 3.14.39 PM.jpg","private":true,"redirect_url":null,"remote_url":"http://f.cl.ly/items/3z1C2v3Y0D031r2w050v/Screen%20Shot%202013-05-18%20at%203.14.39%20PM.jpg","source":"Mozilla/5.0
         (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.31 (KHTML, like Gecko)
-        Chrome/26.0.1410.65 Safari/537.31","updated_at":"2013-05-18T19:36:17Z","view_counter":2,"href":"http://my.cl.ly/items/29646412","icon":"http://my.cld.me/images/item-types/image.png","subscribed":false,"url":"http://cl.ly/image/2I3x0X0N3G3Q","content_url":"http://cl.ly/image/2I3x0X0N3G3Q/Screen%20Shot%202013-05-18%20at%203.14.39%20PM.jpg","download_url":"http://cl.ly/image/2I3x0X0N3G3Q/download/Screen%20Shot%202013-05-18%20at%203.14.39%20PM.jpg","thumbnail_url":"http://thumbs.getcloudapp.com/2I3x0X0N3G3Q","last_viewed_at":"2013-05-18T19:43:53Z"}'
+        Chrome/26.0.1410.65 Safari/537.31","updated_at":"2013-05-18T19:36:17Z","view_counter":3,"href":"http://my.cl.ly/items/29646412","icon":"http://my.cld.me/images/item-types/image.png","subscribed":true,"url":"http://cl.ly/image/2I3x0X0N3G3Q","content_url":"http://cl.ly/image/2I3x0X0N3G3Q/Screen%20Shot%202013-05-18%20at%203.14.39%20PM.jpg","download_url":"http://cl.ly/image/2I3x0X0N3G3Q/download/Screen%20Shot%202013-05-18%20at%203.14.39%20PM.jpg","thumbnail_url":"http://thumbs.getcloudapp.com/2I3x0X0N3G3Q","last_viewed_at":"2013-05-31T15:19:54Z"}'
     http_version: 
-  recorded_at: Mon, 20 May 2013 18:10:38 GMT
+  recorded_at: Fri, 31 May 2013 15:37:11 GMT
 - request:
     method: get
     uri: http://f.cl.ly/items/3z1C2v3Y0D031r2w050v/Screen%20Shot%202013-05-18%20at%203.14.39%20PM.jpg
@@ -63,14 +63,14 @@ http_interactions:
     headers:
       !binary "WC1BbXotSWQtMg==":
       - !binary |-
-        NHhqUCtJeTFOK3lrZWlMOWJWVGFLTjVheXZQWUEydmFPQnVUQ0JjcmpVcDM0
-        ZjF3d0JXcHlCSkd4OTN4SG00OQ==
+        eHRiWDJZS2dIbFNrZUVMVHNyVnF1WGJZUFY1b1FsVG5neEIrd0dFUHlYVC9B
+        d3VZSFZMbjNWdTZNdzYrK0NaSg==
       !binary "WC1BbXotUmVxdWVzdC1JZA==":
       - !binary |-
-        RURCOTNENjBFNEYxODRERg==
+        QzU3QkIwRkNCRDlCQkIyNg==
       !binary "RGF0ZQ==":
       - !binary |-
-        TW9uLCAyMCBNYXkgMjAxMyAxODoxMDozNCBHTVQ=
+        RnJpLCAzMSBNYXkgMjAxMyAxNTozNzoxMiBHTVQ=
       !binary "TGFzdC1Nb2RpZmllZA==":
       - !binary |-
         U2F0LCAxOCBNYXkgMjAxMyAxOTozNjoxOSBHTVQ=
@@ -1092,5 +1092,5 @@ http_interactions:
         lpO1ABS0lFABRS0UAJS0UlABRS0lABRS0UAJRRS0AFJRS0AFJRS0AJS0UUAJ
         RRRQB//Z
     http_version: 
-  recorded_at: Mon, 20 May 2013 18:10:39 GMT
-recorded_with: VCR 2.4.0
+  recorded_at: Fri, 31 May 2013 15:37:11 GMT
+recorded_with: VCR 2.5.0
