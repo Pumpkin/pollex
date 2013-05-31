@@ -75,5 +75,32 @@ describe Pollex::Middleware do
         expect(headers).to eq('Content-Type' => 'text/html')
       end
     end
+
+    context 'a path containing a drop type' do
+      let(:path) { "/image/#{slug}" }
+
+      it 'finds the slug' do
+        drop_class.should_receive(:new).with(slug)
+        subject
+      end
+    end
+
+    context 'a path containing a file name' do
+      let(:path) { "/#{slug}/image.png" }
+
+      it 'finds the slug' do
+        drop_class.should_receive(:new).with(slug)
+        subject
+      end
+    end
+
+    context 'a path containing a drop type and file name' do
+      let(:path) { "/image/#{slug}/image.png" }
+
+      it 'finds the slug' do
+        drop_class.should_receive(:new).with(slug)
+        subject
+      end
+    end
   end
 end

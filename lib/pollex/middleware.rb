@@ -1,9 +1,11 @@
 module Pollex
   class Middleware
+    SLUG_MATCHER = %r{/(?:text|code|image)?/?(?<slug>\w+)}
+
     attr_accessor :slug
 
     def initialize(path)
-      @slug = File.basename(path)
+      @slug = path.match(SLUG_MATCHER)[:slug]
     end
 
     def self.call(env)
