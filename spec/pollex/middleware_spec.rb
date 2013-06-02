@@ -56,6 +56,15 @@ describe Pollex::Middleware do
       end
     end
 
+    context 'an image drop with uppercase extension' do
+      let(:extension) { '.JPG' }
+
+      it 'serves the thumbnail' do
+        expected = [ 200, { 'Content-Length' => '42' }, thumb ]
+        expect(subject).to eq(expected)
+      end
+    end
+
     context 'an unknown file type' do
       let(:extension) { '' }
       let(:drop_type) { 'unknown' }

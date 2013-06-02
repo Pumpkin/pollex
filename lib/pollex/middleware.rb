@@ -49,7 +49,7 @@ module Pollex
 
     def drop_type(drop)
       return :bookmark if drop.type == 'bookmark'
-      return :image    if image_extensions.include?(drop.extension)
+      return :image    if image_extensions.include?(drop.extension.downcase)
 
       icon_exists?(drop.type) ? drop.type : 'unknown'
     end
