@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '1.9.3'
+
 gem 'airbrake'
 gem 'metriks-middleware'
 gem 'posix-spawn'
