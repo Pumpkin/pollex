@@ -5,17 +5,17 @@ describe Pollex::Middleware do
   describe '#serve' do
     let(:path)        { "/#{slug}" }
     let(:slug)        { 'abc123' }
-    let(:drop_class)  { stub(:drop_class, new: drop) }
-    let(:drop)        { stub(:drop, file:      file,
-                                    found?:    found,
-                                    extension: extension,
-                                    type:      drop_type) }
-    let(:file)        { stub(:file) }
+    let(:drop_class)  { double(:drop_class, new: drop) }
+    let(:drop)        { double(:drop, file:      file,
+                                      found?:    found,
+                                      extension: extension,
+                                      type:      drop_type) }
+    let(:file)        { double(:file) }
     let(:extension)   { '.png' }
     let(:drop_type)   { 'image' }
     let(:found)       { true }
-    let(:thumb_class) { stub(:thumb_class, new: thumb) }
-    let(:thumb)       { stub(:thumb, success?: success, size: 42) }
+    let(:thumb_class) { double(:thumb_class, new: thumb) }
+    let(:thumb)       { double(:thumb, success?: success, size: 42) }
     let(:success)     { true }
     subject { Pollex::Middleware.new(path).serve(drop_class, thumb_class) }
 
