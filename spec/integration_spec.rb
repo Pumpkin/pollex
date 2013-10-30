@@ -9,7 +9,7 @@ describe Pollex, type: :feature do
       get '/2I3x0X0N3G3Q'
       expect(last_response).to be_ok
       content_length = last_response.headers['content-length'].to_i
-      expect(content_length).to be_within(10).of(8090)
+      expect(content_length).to be_within(10).of(11527)
     end
   end
 
