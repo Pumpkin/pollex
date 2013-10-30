@@ -24,8 +24,8 @@ module Pollex
         ENV['RACK_ENV'] unless ENV['RACK_ENV'] == 'production'
       end
 
-      app_name = ENV.fetch('PS') do
-        # Fall back to hostname if PS isn't set.
+      app_name = ENV.fetch('DYNO') do
+        # Fall back to hostname if DYNO isn't set.
         require 'socket'
         Socket.gethostname
       end
@@ -33,7 +33,6 @@ module Pollex
       on_error = ->(e) do STDOUT.puts("LibratoMetrics: #{ e.message }") end
       opts     = { on_error: on_error, source: app_name }
       opts[:prefix] = prefix if prefix && !prefix.empty?
-
       Metriks::Reporter::LibratoMetrics.new(user, token, opts).start
     end
   end
