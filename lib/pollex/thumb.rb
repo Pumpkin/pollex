@@ -21,6 +21,10 @@ module Pollex
       end
     end
 
+    def path
+      thumbnail.path
+    end
+
     protected
 
     def thumbnail

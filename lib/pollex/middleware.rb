@@ -14,16 +14,32 @@ module Pollex
 
     def serve(drop_class = Drop, thumb_class = Thumb)
       drop  = drop_class.new(slug)
+      file = StoredFile.new("#{slug}.png")
+
       return not_found  unless drop.found?
       return icon(drop) unless image?(drop)
 
+      return redirect(file.url) if file.exists?
+
       thumb = thumb_class.new(drop.file, slug)
       return error unless thumb.success?
+
+      file.create!(thumb)
+
+      return redirect(file.url) if file.exists?
 
       response(thumb)
     end
 
     protected
+
+    def redirect(url)
+      [ 302, {
+        'Location'      => url,
+        'Cache-Control' => 'public, max-age=86400',
+        'Date'          => Time.now.httpdate
+      }, [] ]
+    end
 
     def response(thumb)
       [ 200, { 'Content-Length' => thumb.size.to_s }, thumb ]

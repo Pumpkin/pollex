@@ -6,6 +6,7 @@ gem 'airbrake'
 gem 'metriks-middleware'
 gem 'posix-spawn'
 gem 'puma'
+gem 'aws-sdk'
 gem 'rack'
 
 group :test do

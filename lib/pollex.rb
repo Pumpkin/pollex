@@ -1,3 +1,4 @@
+require 'pollex/stored_file'
 require 'pollex/drop'
 require 'pollex/exception_tracking'
 require 'pollex/handle_exceptions'

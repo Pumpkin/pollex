@@ -1,8 +1,9 @@
+$:<< "lib"
 require 'pollex'
 
 # Catch exceptions and return a 500 downstream from metriks/middleware.
 Pollex::Instrumentation.setup(self)
-use Pollex::HandleExceptions
+use Pollex::HandleExceptions unless ENV['RACK_ENV'] == 'dev'
 Pollex::ExceptionTracking.setup(self)
 
 public_file_urls = Dir['public/**/*'].select {|x| File.file?(x) }
